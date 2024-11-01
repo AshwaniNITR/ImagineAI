@@ -3,6 +3,7 @@ import React, { useTransition, useState } from 'react';
 import TabButton from './TabButton';
 import { Signup } from './signUp';
 import { SignIn } from './SignIn';
+import Link from 'next/link';
 
 const TAB_DATA = [
   {
@@ -38,7 +39,7 @@ export const Sign = () => {
 
   return (
     <section>
-      <h1 className='text-center pt-0 text-4xl sm:text-5xl lg:text-6xl mt-0  text-transparent bg-clip-text bg-gradient-to-br from-[#70BCCD] to-[#67E331] font-extrabold'>
+      <h1 className='text-center pt-0 text-4xl sm:text-5xl lg:text-6xl mt-0  text-transparent bg-clip-text bg-gradient-to-br from-[#13163F] to-[#67E331] font-extrabold'>
         WEBSITE
       </h1>
       
@@ -48,13 +49,16 @@ export const Sign = () => {
            backgroundImage: `url(${images.bgImgRight})`,
          }}       */}
         <div>
-          <p className='font-bold my-2 text-transparent bg-clip-text bg-gradient-to-br from-[#70BCCD] to-[#67E331] md:text-4xl text-3xl'>ImageAI</p>
+          <p className='font-bold my-2 text-transparent bg-clip-text bg-gradient-to-br from-[#13163F] to-[#67E331] md:text-4xl text-3xl'>ImageAI</p>
           <p className='text-[#ADB7BE] mb-4 mt-4 max-w-md md:text-xl text-lg '>
            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis dolores quos quod porro aperiam incidunt magni repudiandae ab. Quia esse quisquam ab cupiditate. Et tempora voluptatibus inventore nesciunt? Ducimus, voluptates.
           </p>
+          <Link className="px-4 py-1 mb-2 bg-gradient-to-br from-[#13163F] to-[#67E331] text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300" href={"/home"}>
+             Explore
+          </Link>
         </div>
         
-        <div className='bg-gradient-to-br from-[#70BCCD] to-[#67E331] rounded-lg p-7'>
+        <div className='bg-gradient-to-br from-[#13163F] to-[#67E331] rounded-lg p-7'>
           <div className='flex flex-row  max-w-full  justify-evenly'>
             <TabButton
               selectTab={() => handleTabChange('SignUp')}
