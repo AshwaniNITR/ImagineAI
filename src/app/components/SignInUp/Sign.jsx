@@ -22,16 +22,21 @@ const TAB_DATA = [
 export const Sign = () => {
   const [tab, setTab] = useState("SignUp");
   const [isPending, startTransition] = useTransition();
+  const [user, setUser] = useState(false);
   const router = useRouter();
   
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('/api/getCurrentUser'); // Create an API route to get the current user
-        const user = await response.json();
-       
-        if (user) {
-          setTab("SignIn");
+        // Fetch current user
+        const response = await fetch('/api/getCurrentUser'); 
+        const data = await response.json(); // Parse JSON from the response
+        
+        if (data.isVerified) { // Check if the user is verified
+          setUser(true);
+          setTab("SignIn"); // Switch to SignIn tab if the user is verified
+        } else {
+          setUser(false);
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -63,10 +68,10 @@ export const Sign = () => {
         <div>
           <p className='font-bold my-2 text-transparent bg-clip-text bg-gradient-to-br from-[#13163F] to-[#67E331] md:text-4xl text-3xl'>ImageAI</p>
           <p className='text-[#ADB7BE] mb-4 mt-4 max-w-md md:text-xl text-lg '>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis dolores quos quod porro aperiam incidunt magni repudiandae ab. Quia esse quisquam ab cupiditate. Et tempora voluptatibus inventore nesciunt? Ducimus, voluptates.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis dolores quos quod porro aperiam incidunt magni repudiandae ab. Quia esse quisquam ab cupiditate. Et tempora voluptatibus inventore nesciunt? Ducimus, voluptates.
           </p>
           <Link className="px-4 py-1 mb-2 bg-gradient-to-br from-[#13163F] to-[#67E331] text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300" href={"/home"}>
-             Explore
+            Explore
           </Link>
         </div>
 

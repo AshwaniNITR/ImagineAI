@@ -26,21 +26,21 @@ export async function POST(request:NextRequest){
          if(!validPassword){
             return NextResponse.json({error:"Incorrect Password"},{status:400});
          }
-         const tokenData={
-            id: user._id,
-            username: user.username,
-            email:user.email,
-         }
-         console.log(tokenData)
-         const token= jwt.sign(tokenData,(process.env.TOKEN_SECRET!),{expiresIn:'1d'})
-         console.log(token)
+         // const tokenData={
+         //    id: user._id,
+         //    username: user.username,
+         //    email:user.email,
+         // }
+         // console.log(tokenData)
+         // const token= jwt.sign(tokenData,(process.env.TOKEN_SECRET!),{expiresIn:'1d'})
+         // console.log(token)
          const response=NextResponse.json({
             message:"User registered successfully",
             success:true
          })
-         response.cookies.set("token",token,{
-            httpOnly:true
-         })
+         // response.cookies.set("token",token,{
+         //    httpOnly:true
+         // })
          return response
 
     } catch (error:any) {

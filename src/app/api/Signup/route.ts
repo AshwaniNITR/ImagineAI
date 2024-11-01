@@ -3,7 +3,7 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import { sendemail } from "@/helpers/mailer";
-
+import jwt from "jsonwebtoken"
 connectMongo();
 
 export async function POST(request: NextRequest) {
@@ -30,20 +30,31 @@ export async function POST(request: NextRequest) {
             email,
             password: hashedpassword,
         });
-
+        const tokenData={
+            id: newUser._id,
+            username: newUser.username,
+            email:newUser.email,
+         }
+         console.log(tokenData)
+         const token= jwt.sign(tokenData,(process.env.TOKEN_SECRET!),{expiresIn:'1d'})
+         console.log(token)
         // Save the new user
         const savedUser = await newUser.save();
         console.log("Saved User:", savedUser); // Log the saved user
 
         // Send verification email
         await sendemail({ email, emailType: "VERIFY", userId: savedUser._id.toString()});
-
+      
         // Return success response
-        return NextResponse.json({
+        const response= NextResponse.json({
             message: "User registered Successfully",
             success: true,
             savedUser: savedUser.toObject(), // Convert Mongoose document to plain object if needed
         });
+        response.cookies.set("token",token,{
+            httpOnly:true
+         })
+         return response
     } catch (error: any) {
         console.error("Error during registration:", error); // Log the error for debugging
         return NextResponse.json({ error: error.message }, { status: 500 });
