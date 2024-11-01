@@ -1,4 +1,4 @@
-import { Sign } from "@/Components/SignInUp/Sign";
+import { Sign } from "@/app/components/SignInUp/Sign";
 import Image from "next/image";
 
 export default function Home() {
